@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "Watcher",
+    "version": "0.0.1",
+    "permissions": [
+        "tabs",
+        "http://localhost:5000/*",
+        "activeTab"
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["content.js"]
+        }
+    ]
+}
