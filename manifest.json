@@ -5,10 +5,11 @@
     "permissions": [
         "tabs",
         "http://localhost:5000/*",
-        "activeTab"
+        "activeTab",
+        "storage"
     ],
     "background": {
-        "scripts": ["background.js"]
+        "scripts": ["background2.js"]
     },
     "content_scripts": [
         {

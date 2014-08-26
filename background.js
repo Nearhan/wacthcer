@@ -2,9 +2,9 @@
 var runtime = chrome.runtime;
 var tabs = chrome.tabs;
 
+var when = require('when');
 
 // Timer ========================================
-
 function Timer() {
 
     this.intervals = [];
@@ -48,25 +48,21 @@ SITES.prototype.registerTab = function(tab) {
 
     console.log('2');
 
-    //toggle current watcher  
+    //toggle current watcher
     if (this.currentTimer) {
 
         this.currentTimer.toggle();
     }
 
-    console.log('3');
-
-    //check if tab is registered 
+    //check if tab is registered
     var url = new URL(tab.url);
     if (this.hasOwnProperty(url.host)) {
 
         this.currentTimer = this[url.host]['timer'];
         this.currentTimer.toggle();
         this[url.host]['count'] += 1;
-        sendToServer();
         return true;
     }
-    console.log('4');
 
     // New tab then craete Timer and toggle
     this.currentTimer = new Timer();
@@ -75,15 +71,13 @@ SITES.prototype.registerTab = function(tab) {
         timer: this.currentTimer,
         count: 1
     };
-    console.log('5');
 
-    sendToServer();
     return true;
 };
 
 
 // Server Calls ============================
- 
+
 function sendToServer() {
 
     var xhr = new XMLHttpRequest();
@@ -101,6 +95,8 @@ function sendToServer() {
     var data = JSON.stringify(sites);
     xhr.send(data);
 }
+
+
 
 // EVENTS ========================================
 
@@ -129,4 +125,4 @@ tabs.onUpdated.addListener(
 
 // INIT =============================================
 
-var sites = new SITES();
+sites = new SITES();
